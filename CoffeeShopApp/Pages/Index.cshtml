@@ -1,0 +1,49 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+<div class="mt-5 my-3 row d-flex align-items-center justify-content-between">
+    <div class="col-6">
+        <h1>Menu List</h1>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <caption>List of Products</caption>
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Products.First().Name)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Products.First().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Products.First().ProductType)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr class="@((item.IsSoldOut) ? "table-danger" : "")">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductType)
+                </td>
+                <td>
+                    <a asp-page="./Product/Details" asp-route-id="@item.Id" class="btn btn-success"><i class="bi bi-eye">Details</i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

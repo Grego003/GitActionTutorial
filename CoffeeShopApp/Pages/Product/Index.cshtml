@@ -1,0 +1,68 @@
+﻿@page
+@model CoffeeShopApp.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="mt-5 my-3 row d-flex align-items-center justify-content-between">
+    <div class="col-6">
+        <h1>Product List</h1>
+    </div>
+    <div class="col-2">
+        <a asp-page="./Create" class="btn btn-primary">Create new Product</a>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <caption>List of Products</caption>
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.ProductsDTO.First().Name)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model =>model.ProductsDTO.First().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductsDTO.First().ProductType)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model =>model.ProductsDTO.First().Stock)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model =>model.ProductsDTO.First().TotalSold)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ProductsDTO) {
+            <tr class="@((item.IsSoldOut) ? "table-danger" : "")">
+                <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalSold)
+            </td>
+            <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="bi bi-pen">Edit</i></a>
+                    <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-success"><i class="bi bi-eye">Details</i></a>
+                    @if(User.IsInRole("admin")) {
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="bi bi-trash2">Delete</i></a>
+                    }
+                    
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
