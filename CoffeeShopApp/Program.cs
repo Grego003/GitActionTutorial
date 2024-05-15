@@ -31,6 +31,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
+var secretMessage = builder.Configuration["SecretMessage"];
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
