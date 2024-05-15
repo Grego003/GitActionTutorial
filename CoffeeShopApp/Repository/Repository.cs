@@ -32,6 +32,8 @@ namespace CoffeeShopApp.Repository
         {
             IQueryable<T> query = dbSet;
             Task<T?> task = query.FirstOrDefaultAsync(filter);
+            System.Threading.Thread.Sleep(2000);
+
             return await task;
         }
 
